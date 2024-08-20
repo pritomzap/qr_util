@@ -1,35 +1,22 @@
 package com.qr_util.qr_util
 
-import androidx.annotation.NonNull
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
-import io.flutter.plugin.common.MethodCall
-import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 
 /** QrUtilPlugin */
-class QrUtilPlugin: FlutterPlugin, MethodCallHandler {
-  /// The MethodChannel that will the communication between Flutter and native Android
-  ///
-  /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-  /// when the Flutter Engine is detached from the Activity
-  private lateinit var channel : MethodChannel
-
-  override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "qr_util")
-    channel.setMethodCallHandler(this)
+class QrUtilPlugin: FlutterPlugin{
+  override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+    binding.platformViewRegistry.registerViewFactory(
+      "com.qr_util.qr_scanner", ScannerViewFactory(binding.binaryMessenger))
   }
 
-  override fun onMethodCall(call: MethodCall, result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
-    }
-  }
-
+  /*
+  * onDetachedFromEngine: should release all resources in this method
+  * https://api.flutter.dev/javadoc/io/flutter/embedding/engine/plugins/FlutterPlugin.html
+  * */
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-    channel.setMethodCallHandler(null)
+    /*
+    * Eg: .setMethodCallHandler(null), setStreamHandler(null) etc
+    * */
+    TODO("Not yet implemented")
   }
 }
