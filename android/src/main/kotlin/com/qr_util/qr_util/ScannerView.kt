@@ -5,10 +5,8 @@ package com.qr_util.qr_util
  * Created 20/8/24 at 11:31 PM
  */
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
-import com.qr_util.qr_util.databinding.QrScannerLayoutBinding
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -22,15 +20,17 @@ class ScannerView internal constructor(
     id: Int
 ) :
     PlatformView, MethodCallHandler {
-    private lateinit var qrScannerBinding: QrScannerLayoutBinding
+    //private lateinit var qrScannerBinding: QrScannerLayoutBinding
+    private lateinit var mainView: View
     private val methodChannel: MethodChannel
     override fun getView(): View {
-        return qrScannerBinding.root
+        return mainView
     }
 
     init {
         // Init WebView
-        qrScannerBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.qr_scanner_layout, null, false);
+        //qrScannerBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.qr_scanner_layout, null, false);
+        mainView = LayoutInflater.from(context).inflate(R.layout.qr_scanner_layout,null)
         methodChannel = MethodChannel(messenger, "com.qr_util.qr_scanner")
         methodChannel.setMethodCallHandler(this)
     }
