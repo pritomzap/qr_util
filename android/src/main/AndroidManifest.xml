@@ -3,6 +3,4 @@
   package="com.qr_util.qr_util">
 
     <uses-sdk tools:overrideLibrary="com.google.zxing.client.android" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
 </manifest>

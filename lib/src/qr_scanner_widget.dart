@@ -26,12 +26,14 @@ class _QrScannerWidgetState extends State<QrScannerWidget> {
   @override
   void initState() {
     super.initState();
-    _createNativeScannerView();
+    //_createNativeScannerView();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 300,
+      height: 300,
       child: AndroidView(
         viewType: 'com.qr_util.qr_scanner',
         onPlatformViewCreated: (id){
